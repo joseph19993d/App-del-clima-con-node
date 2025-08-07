@@ -11,32 +11,16 @@ const preguntas = [
     message: "¿Que desea hacer?",
     choices: [
       {
-        value: "1",
-        name: `${"1.".green} Crear tarea`,
+        value: 1,
+        name: `${"1.".green} Buscar ciudad`,
       },
       {
-        value: "2",
-        name: `${"2.".green} Listar tareas`,
+        value: 2,
+        name: `${"2.".green} Historial`,
       },
       {
-        value: "3",
-        name: `${"3.".green} Listar tareas completadas`,
-      },
-      {
-        value: "4",
-        name: `${"4.".green} Listar tareas pendientes`,
-      },
-      {
-        value: "5",
-        name: `${"5.".green} Completar tareas`,
-      },
-      {
-        value: "6",
-        name: `${"6.".green} Borrar tareas`,
-      },
-      {
-        value: "0",
-        name: `${"0.".green} Salir`,
+        value: 3,
+        name: `${"3.".green} Salir`,
       },
     ],
   },
@@ -64,7 +48,7 @@ const pausa = async () => {
   await inquirer.prompt(questions);
 };
 
-const validateInput = async (message) => {
+const inputText = async (message) => {
   const questions = {
     type: "input",
     name: "desc",
@@ -137,7 +121,7 @@ const confirmar = async (message) => {
 module.exports = {
   inquirerMenu,
   pausa,
-  validateInput,
+  inputText,
   listadoTareasBorrar,
   confirmar,
   selecionDeTareas
