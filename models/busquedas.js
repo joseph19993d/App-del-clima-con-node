@@ -13,8 +13,7 @@ class Busquedas {
 
         try {
             // Peticion http
-            // const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${ encodeURIComponent(lugar) }.json?access_token=${process.env.MAPBOX_KEY}&limit=5`;
-            const url = `https://restcountries.com/v3.1/independent?status=true`;
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${lugar}&appid=${process.env.API_TOKEN}&units=metric`;
             console.log(`Buscando lugar: ${lugar}...`);
             const response = await axios.get(url);
             console.log(response.data);
