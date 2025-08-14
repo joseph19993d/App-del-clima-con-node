@@ -20,6 +20,8 @@
   "dependencies": {
     "axios": "^1.11.0",
     "colors": "^1.4.0",
+    "country-list": "^2.3.0",
+    "dotenv": "^17.2.1",
     "inquirer": "^7.3.3",
     "uuid": "^8.3.2"
   }
