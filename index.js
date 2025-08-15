@@ -11,7 +11,7 @@ const main = async () => {
     let opt = 0;
     do {
         opt = await inquirerMenu();
-        
+
         switch (opt) {
             case 1:
                 // Mostrar mensaje
@@ -20,7 +20,6 @@ const main = async () => {
 
                 if (ciudades.length === 0) {
                     console.log("\n No hay resultados para el termino buscado".red);
-                    continue;
                 } else if (ciudades.length === 1) {
                     console.log("\n Un solo resultado encontrado".yellow);
 
@@ -37,14 +36,12 @@ const main = async () => {
                 } else if (ciudades.length > 1) {
                     console.log("\n Se encontraron varios resultados".yellow);
 
+                    //Menu de ciudades para seleccionar
                     const idSelecionado = await listarLugares(ciudades, "Selecione la ciudad");
 
                     if (String(idSelecionado) === '0') {
-                        console.log("IDE SELECIONADO ES 0")
                         continue;
                     }
-                    // Seleccionar el lugar
-                    console.log("idSelecionado", idSelecionado)
                     lugarSeleccionado = ciudades.find(ciudad => String(ciudad.id) === String(idSelecionado));
 
                     console.log(`ID: ${lugarSeleccionado.id}`);
@@ -61,7 +58,6 @@ const main = async () => {
                 console.log("historial");
                 break;
             case 3:
-                console.log("En case 3: opt: ", opt);
 
                 // Mostrar mensaje
                 const termino = await inputText("Lugar:");
@@ -70,7 +66,6 @@ const main = async () => {
                 if (lugares.length === 0) {
 
                     console.log("\n No hay resultados para el termino buscado".red);
-                    continue;
 
                 } else if (lugares.length === 1) {
 
@@ -82,7 +77,6 @@ const main = async () => {
                     console.log(`Latitud: ${lugarSeleccionado.lat}`);
                     console.log(`Longitud: ${lugarSeleccionado.lon}`);
 
-
                 } else if (lugares.length > 1) {
 
                     console.log("\n Se encontraron varios resultados: \n".yellow);
@@ -93,9 +87,18 @@ const main = async () => {
                     }
                     lugarSeleccionado = lugares.find(lugares => String(lugares.id) === String(idSelecionado));
                     //Mostrar el lugar
+
                     console.log(`\nNombre: ${lugarSeleccionado.nombre}`);
                     console.log(`Latitud: ${lugarSeleccionado.lat}`);
                     console.log(`Longitud: ${lugarSeleccionado.lon}`);
+                    const climalugar = await busquedas.climaLugar(lugarSeleccionado.lat, lugarSeleccionado.lon)
+                    console.log("pais: ",climalugar.pais)
+                    console.log("temperatura: ",climalugar.temperatura)
+                    console.log("sensacion: ",climalugar.sensacion)
+                    console.log("humedad: ",climalugar.humedad)
+                    console.log("presion: ",climalugar.presion)
+                    console.log("clima: ",climalugar.clima)
+
                 }
 
                 break;

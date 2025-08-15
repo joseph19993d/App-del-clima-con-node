@@ -89,11 +89,35 @@ class Busquedas {
 
     async climaLugar(lat, lon) {
         try {
+            const params = { ...this.paramsOpenWeather, lat, lon };
+
+            const instance = axios.create({
+                baseURL: 'https://api.openweathermap.org/data/2.5/weather',
+                params
+            });
+
+            const response = await instance.get();
+
+            const data = response.data;
+
+            return {
+                nombre: data.name,
+                pais: getName(data.sys.country) || data.sys.country,
+                lat: data.coord.lat,
+                lon: data.coord.lon,
+                temperatura: `Principal: ${data.main.temp}°C / mínima: ${data.main.temp_min}°C / máxima: ${data.main.temp_max}°C`,
+                sensacion: `${data.main.feels_like}°C`,
+                humedad: `${data.main.humidity}%`,
+                presion: `${data.main.pressure} hPa`,
+                clima: data.weather[0].description,
+            };
 
         } catch (error) {
-            console.log(error)
+            console.error(error.message);
+            return null;
         }
     }
+
 
 }
 
