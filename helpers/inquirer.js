@@ -20,13 +20,18 @@ const preguntas = [
       },
       {
         value: 3,
-        name: `${"3.".green} Salir`,
+        name: `${"3.".green} Buscar Lugar`,
+      },
+      {
+        value: 0,
+        name: `${"4.".green} Salir`,
       },
     ],
   },
 ];
 
 const inquirerMenu = async () => {
+
   console.clear();
   console.log("========================".green);
   console.log("selecione una opcion");
@@ -64,12 +69,12 @@ const inputText = async (message) => {
   return desc;
 };
 
-const listarLugares = async (lugares = []) => {
+const listarLugares = async (lugares = [], mensaje) => {
   const choices = lugares.map((lugar, i) => {
     const idx = `${i + 1}.`.green;
     return {
       value: `${lugar.id}`,
-      name: `${idx} ${lugar.nombre} / ${lugar.pais}`,
+      name: `${idx} ${lugar.nombre} ${lugar.pais? "/ "+lugar.pais : ''}`,
     };
   });
 
@@ -81,7 +86,7 @@ const listarLugares = async (lugares = []) => {
   const preguntas = {
     type: "list",
     name: "id",
-    message: "Selecione el lugar",
+    message: mensaje || "Selecione el lugar",
     choices,
   };
 
