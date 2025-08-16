@@ -118,6 +118,12 @@ class Busquedas {
         }
     }
 
+    agregarHistorial(lugar){
+        // TODO: prevenir duplicados
+        this.historial.unshift(lugar);
+
+    }
+
 
 }
 
