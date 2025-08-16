@@ -132,6 +132,18 @@ class Busquedas {
         fs.writeFileSync(this.dbPath, JSON.stringify(payload))
     }
 
+    leerDB(){
+        const db = fs.readFileSync(this.dbPath,{encoding:'utf-8'})
+        console.log("db",db)
+        if(db){
+            const dbObject =JSON.parse(db);
+            console.log(dbObject)
+            if(dbObject?.historial){
+                this.historial = dbObject.historial
+            }
+        }
+    }
+
 
 }
 
