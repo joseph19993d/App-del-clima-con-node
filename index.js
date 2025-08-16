@@ -39,10 +39,11 @@ const main = async () => {
                     //Menu de ciudades para seleccionar
                     const idSelecionado = await listarLugares(ciudades, "Selecione la ciudad");
 
-                    if (String(idSelecionado) === '0') {
-                        continue;
-                    }
+                    if (String(idSelecionado) === '0') continue;
                     lugarSeleccionado = ciudades.find(ciudad => String(ciudad.id) === String(idSelecionado));
+
+                    //Agregar historial
+                    busquedas.agregarHistorial(String(lugarSeleccionado.nombre))
 
                     console.log(`ID: ${lugarSeleccionado.id}`);
                     console.log(`Nombre: ${lugarSeleccionado.nombre}`);
@@ -55,7 +56,10 @@ const main = async () => {
 
                 break;
             case 2:
-                console.log("historial");
+                console.log("historial".green);
+                busquedas.historial.forEach((nombreLugar,i) => {
+                    console.log(`${i+1}. `.green, nombreLugar)
+                })
                 break;
             case 3:
 
@@ -80,25 +84,28 @@ const main = async () => {
                 } else if (lugares.length > 1) {
 
                     console.log("\n Se encontraron varios resultados: \n".yellow);
+
                     //Mostrar opciones
                     const idSelecionado = await listarLugares(lugares);
                     if (String(idSelecionado) === '0') {
                         continue;
                     }
                     lugarSeleccionado = lugares.find(lugares => String(lugares.id) === String(idSelecionado));
-                    //Mostrar el lugar
 
+                    //Agregar historial
+                    busquedas.agregarHistorial(String(lugarSeleccionado.nombre))
+
+                    //Mostrar el lugar
                     console.log(`\nNombre: ${lugarSeleccionado.nombre}`);
                     console.log(`Latitud: ${lugarSeleccionado.lat}`);
                     console.log(`Longitud: ${lugarSeleccionado.lon}`);
                     const climalugar = await busquedas.climaLugar(lugarSeleccionado.lat, lugarSeleccionado.lon)
-                    console.log("pais: ",climalugar.pais)
-                    console.log("temperatura: ",climalugar.temperatura)
-                    console.log("sensacion: ",climalugar.sensacion)
-                    console.log("humedad: ",climalugar.humedad)
-                    console.log("presion: ",climalugar.presion)
-                    console.log("clima: ",climalugar.clima)
-
+                    console.log("pais: ", climalugar.pais)
+                    console.log("temperatura: ", climalugar.temperatura)
+                    console.log("sensacion: ", climalugar.sensacion)
+                    console.log("humedad: ", climalugar.humedad)
+                    console.log("presion: ", climalugar.presion)
+                    console.log("clima: ", climalugar.clima)
                 }
 
                 break;
