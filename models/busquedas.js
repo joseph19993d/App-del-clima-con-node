@@ -1,9 +1,10 @@
-
+const fs = require ('fs')
 const axios = require('axios');
 const { getName } = require('country-list');
 class Busquedas {
 
-    historial = ['Madrid', 'paris', 'san jose', 'cartagena',];
+    historial = [];
+    dbPath = './db/database.json';
 
     constructor() {
         // TODO: leer la db si existe
@@ -120,8 +121,15 @@ class Busquedas {
 
     agregarHistorial(lugar){
         // TODO: prevenir duplicados
-        this.historial.unshift(lugar);
+        lugar = String(lugar)
+        if(this.historial.includes( lugar.toLocaleLowerCase())) return;
+        this.historial.unshift(lugar.toLocaleLowerCase());
+        this.guardarDB();
+    }
 
+    guardarDB(){
+        const payload ={ historial: this.historial} 
+        fs.writeFileSync(this.dbPath, JSON.stringify(payload))
     }
 
 
