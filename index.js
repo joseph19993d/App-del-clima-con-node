@@ -8,6 +8,7 @@ require('dotenv').config();
 const main = async () => {
 
     const busquedas = new Busquedas();
+    busquedas.leerDB();
     let opt = 0;
     do {
         opt = await inquirerMenu();
@@ -19,22 +20,9 @@ const main = async () => {
                 const ciudades = await busquedas.ciudad(ciudadSearch);
 
                 if (ciudades.length === 0) {
-                    console.log("\n No hay resultados para el termino buscado".red);
-                } else if (ciudades.length === 1) {
-                    console.log("\n Un solo resultado encontrado".yellow);
-
-                    // Mostrar el lugar
-                    const lugarSeleccionado = ciudades[0];
-                    console.log(`ID: ${lugarSeleccionado.id}`);
-                    console.log(`Nombre: ${lugarSeleccionado.nombre}`);
-                    console.log(`País: ${lugarSeleccionado.pais}`);
-                    console.log(`Latitud: ${lugarSeleccionado.lat}`);
-                    console.log(`Longitud: ${lugarSeleccionado.lon}`);
-                    console.log(`Temperatura: ${lugarSeleccionado.temperatura}`);
-                    console.log(`Clima: ${lugarSeleccionado.clima}`);
-
-                } else if (ciudades.length > 1) {
-                    console.log("\n Se encontraron varios resultados".yellow);
+                    console.log("\n No hay resultados para la ciudad buscada".red);
+                } else if (ciudades.length >= 1) {
+                    console.log("\n Se encontraron los siguientes resultados".yellow);
 
                     //Menu de ciudades para seleccionar
                     const idSelecionado = await listarLugares(ciudades, "Selecione la ciudad");
@@ -57,8 +45,8 @@ const main = async () => {
                 break;
             case 2:
                 console.log("historial".green);
-                busquedas.historial.forEach((nombreLugar,i) => {
-                    console.log(`${i+1}. `.green, nombreLugar)
+                busquedas.historial.forEach((nombreLugar, i) => {
+                    console.log(`${i + 1}. `.green, nombreLugar)
                 })
                 break;
             case 3:
@@ -71,19 +59,9 @@ const main = async () => {
 
                     console.log("\n No hay resultados para el termino buscado".red);
 
-                } else if (lugares.length === 1) {
+                } else if (lugares.length >= 1) {
 
-                    console.log("\n Un solo resultado encontrado".yellow);
-                    // Mostrar el lugar
-                    const lugarSeleccionado = lugares[0];
-                    console.log(`ID: ${lugarSeleccionado.id}`);
-                    console.log(`Nombre: ${lugarSeleccionado.nombre}`);
-                    console.log(`Latitud: ${lugarSeleccionado.lat}`);
-                    console.log(`Longitud: ${lugarSeleccionado.lon}`);
-
-                } else if (lugares.length > 1) {
-
-                    console.log("\n Se encontraron varios resultados: \n".yellow);
+                    console.log("\n Se encontraron los siguientes resultados: \n".yellow);
 
                     //Mostrar opciones
                     const idSelecionado = await listarLugares(lugares);
