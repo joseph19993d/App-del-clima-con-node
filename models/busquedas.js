@@ -33,6 +33,14 @@ class Busquedas {
         }
     }
 
+    get historialCapitalizado(){
+        return this.historial.map((lugar) => {
+            let palabras = lugar.split(' '); 
+            palabras = palabras.map(palabra => palabra[0].toUpperCase() + palabra.substring(1));
+            return palabras.join(' ');
+        })
+    }
+
     async ciudad(ciudad = '') {
 
         try {
@@ -123,6 +131,7 @@ class Busquedas {
         // TODO: prevenir duplicados
         lugar = String(lugar)
         if(this.historial.includes( lugar.toLocaleLowerCase())) return;
+        this.historial = this.historial.splice(0,5);
         this.historial.unshift(lugar.toLocaleLowerCase());
         this.guardarDB();
     }
@@ -134,7 +143,6 @@ class Busquedas {
 
     leerDB(){
         const db = fs.readFileSync(this.dbPath,{encoding:'utf-8'})
-        console.log("db",db)
         if(db){
             const dbObject =JSON.parse(db);
             console.log(dbObject)
@@ -143,7 +151,6 @@ class Busquedas {
             }
         }
     }
-
 
 }
 
